@@ -33,7 +33,8 @@ module Api::V1
 
     def product_params
       params.require(:product).permit(
-        :name, :price, :sku, :isbn, :description, :brand_id
+        :name, :price, :sku, :isbn, :description, :brand_id,
+        :status
       )
     end
 
