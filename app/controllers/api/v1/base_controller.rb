@@ -9,5 +9,9 @@ module Api::V1
     rescue_from Exception do |exception|
       render json: { errors: exception.message }, status: 500
     end
+
+    def render_json_error(message, status = 400)
+      render json: { errors: [*message] }, status: status
+    end
   end
 end

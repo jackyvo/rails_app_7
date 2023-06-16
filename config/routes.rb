@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       end
 
       resources :clients, only: :create
+      resources :clients_products, only: :create
     end
   end
 end
