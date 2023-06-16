@@ -1,6 +1,6 @@
 module Authenticable
   SECRET = "yoursecretword"
-  
+
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
   def current_user
@@ -12,10 +12,12 @@ module Authenticable
   end
 
   def authenticate_token
-    decode_data = decode_user_data(request.headers["token"])
-    user_data = decode_data[0]["user_id"] unless !decode_data
+    authenticate_with_http_token do |token, options|
+      decode_data = decode_user_data(token)
 
-    @current_user = User.find_by(id: user_data&.id)
+      user_id = decode_data[0]["user_data"] if decode_data.present?
+      @current_user = User.find_by(id: user_id)
+    end
   end
 
   private ##
